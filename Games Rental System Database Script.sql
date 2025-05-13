@@ -1,6 +1,7 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2005                    */
-/* Created on:     5/10/2025 4:52:53 PM                         */
+/* Created on:     5/13/2025                                    */
+/* Modified to use auto-generated IDs                           */
 /*==============================================================*/
 
 
@@ -192,7 +193,7 @@ go
 /* Table: ADMIN                                                 */
 /*==============================================================*/
 create table ADMIN (
-   AID                  int                  not null,
+   AID                  int                  IDENTITY(1,1) not null,
    ADMIN_NAME           varchar(50)          not null,
    USER_PHONE           varchar(11)          not null,
    USER_EMAIL           varchar(50)          not null,
@@ -204,7 +205,7 @@ go
 /* Table: CATEGORY                                              */
 /*==============================================================*/
 create table CATEGORY (
-   CID                  int                  not null,
+   CID                  int                  IDENTITY(1,1) not null,
    CATEGORY_NAME        varchar(50)          not null,
    constraint PK_CATEGORY primary key nonclustered (CID)
 )
@@ -214,7 +215,7 @@ go
 /* Table: GAME                                                  */
 /*==============================================================*/
 create table GAME (
-   GID                  int                  not null,
+   GID                  int                  IDENTITY(1,1) not null,
    AID                  int                  not null,
    VID                  int                  not null,
    CID                  int                  not null,
@@ -254,7 +255,7 @@ go
 /* Table: PAYMENT                                               */
 /*==============================================================*/
 create table PAYMENT (
-   PAYMENT_NO           int                  not null,
+   PAYMENT_NO           int                  IDENTITY(1,1) not null,
    UID                  int                  not null,
    GID                  int                  not null,
    RENT_DATE            datetime             not null,
@@ -333,7 +334,7 @@ go
 /* Table: "USER"                                                */
 /*==============================================================*/
 create table "USER" (
-   UID                  int                  not null,
+   UID                  int                  IDENTITY(1,1) not null,
    USER_NAME            varchar(50)          not null,
    USER_EMAIL           varchar(50)          not null,
    USER_PHONE           varchar(11)          not null,
@@ -346,7 +347,7 @@ go
 /* Table: VENDOR                                                */
 /*==============================================================*/
 create table VENDOR (
-   VID                  int                  not null,
+   VID                  int                  IDENTITY(1,1) not null,
    VENDOR_NAME          varchar(50)          not null,
    VENDOR_EMAIL         varchar(50)          not null,
    ADDRESS              varchar(50)          not null,
@@ -407,82 +408,126 @@ DELETE FROM VENDOR;
 DELETE FROM CATEGORY;
 DELETE FROM [USER];
 
--- Insert into USER table
-INSERT INTO [USER] VALUES 
-(1, 'Ahmed Mohamed', 'ahmed@example.com', '01012345678', '2023-01-15'),
-(2, 'Fatima Ali', 'fatima@example.com', '01023456789', '2023-02-20'),
-(3, 'Omar Hassan', 'omar@example.com', '01034567890', '2023-03-10'),
-(4, 'Layla Ibrahim', 'layla@example.com', '01045678901', '2023-04-05'),
-(5, 'Karim Mahmoud', 'karim@example.com', '01056789012', '2023-05-12');
+-- Insert into USER table without specifying IDs
+INSERT INTO [USER] (USER_NAME, USER_EMAIL, USER_PHONE, JOIN_DATE) VALUES 
+('Ahmed Mohamed', 'ahmed@example.com', '01012345678', '2023-01-15'),
+('Fatima Ali', 'fatima@example.com', '01023456789', '2023-02-20'),
+('Omar Hassan', 'omar@example.com', '01034567890', '2023-03-10'),
+('Layla Ibrahim', 'layla@example.com', '01045678901', '2023-04-05'),
+('Karim Mahmoud', 'karim@example.com', '01056789012', '2023-05-12');
 
--- Insert into CATEGORY table
-INSERT INTO CATEGORY VALUES
-(1, 'Action'),
-(2, 'Adventure'),
-(3, 'Sports'),
-(4, 'Strategy'),
-(5, 'Puzzle');
+-- Insert into CATEGORY table without specifying IDs
+INSERT INTO CATEGORY (CATEGORY_NAME) VALUES
+('Action'),
+('Adventure'),
+('Sports'),
+('Strategy'),
+('Puzzle');
 
--- Insert into VENDOR table
-INSERT INTO VENDOR VALUES
-(1, 'Cairo Games', 'cairo@games.com', 'Maadi, Cairo', '02025123456'),
-(2, 'Alexandria Entertainment', 'alex@entertainment.com', 'Alexandria', '03425789012'),
-(3, 'Delta Digital', 'delta@digital.com', 'Mansoura', '05025741236'),
-(4, 'Upper Games', 'upper@games.com', 'Luxor', '09523698741');
+-- Insert into VENDOR table without specifying IDs
+INSERT INTO VENDOR (VENDOR_NAME, VENDOR_EMAIL, ADDRESS, VENDOR_PHONE) VALUES
+('Cairo Games', 'cairo@games.com', 'Maadi, Cairo', '02025123456'),
+('Alexandria Entertainment', 'alex@entertainment.com', 'Alexandria', '03425789012'),
+('Delta Digital', 'delta@digital.com', 'Mansoura', '05025741236'),
+('Upper Games', 'upper@games.com', 'Luxor', '09523698741');
 
--- Insert into ADMIN table
-INSERT INTO ADMIN VALUES
-(1, 'Mahmoud Admin', '01112345678', 'mahmoud@admin.com'),
-(2, 'Sara Admin', '01223456789', 'sara@admin.com');
+-- Insert into ADMIN table without specifying IDs
+INSERT INTO ADMIN (ADMIN_NAME, USER_PHONE, USER_EMAIL) VALUES
+('Mahmoud Admin', '01112345678', 'mahmoud@admin.com'),
+('Sara Admin', '01223456789', 'sara@admin.com');
 
--- Insert into GAME table
-INSERT INTO GAME VALUES
-(1, 1, 1, 1, 'Desert Warriors', 49.99, '2023-03-15', 'Action game set in Egyptian deserts'),
-(2, 1, 2, 2, 'Pharaoh Tomb', 59.99, '2023-04-20', 'Adventure in ancient Egyptian pyramids'),
-(3, 2, 3, 3, 'Cairo Football 2024', 39.99, '2023-09-10', 'Football simulation with Egyptian teams'),
-(4, 2, 4, 4, 'Nile Empire', 29.99, '2023-07-05', 'Strategy game set along the Nile River'),
-(5, 1, 1, 5, 'Hieroglyphic Puzzles', 19.99, '2023-05-12', 'Puzzle game based on hieroglyphics'),
-(6, 2, 2, 1, 'Alexandria Rally', 34.99, '2023-08-18', 'Racing through streets of Alexandria'),
-(7, 1, 3, 2, 'Legends of Sinai', 54.99, '2023-06-22', 'RPG set in the Sinai Peninsula'),
-(8, 2, 4, 3, 'Hotel Tycoon Egypt', 24.99, '2023-10-30', 'Simulation game managing Egyptian resorts');
+-- Insert into GAME table without specifying IDs
+-- Note: We need to reference the correct AID, VID, CID which are auto-generated
+-- For simplicity in this script, we'll use variables to store these IDs
+DECLARE @AdminID1 INT, @AdminID2 INT;
+DECLARE @VendorID1 INT, @VendorID2 INT, @VendorID3 INT, @VendorID4 INT;
+DECLARE @CategoryID1 INT, @CategoryID2 INT, @CategoryID3 INT, @CategoryID4 INT, @CategoryID5 INT;
 
--- Insert into RENTALS table - April 2025 is the "last month" in our test scenario
--- Game 1 has the most rentals
-INSERT INTO RENTALS VALUES
-(1, 1, '2025-04-01', '2025-04-07'),
-(2, 1, '2025-04-05', '2025-04-12'),
-(3, 1, '2025-04-10', '2025-04-17'),
-(1, 2, '2025-04-02', '2025-04-09'),
-(2, 2, '2025-04-12', '2025-04-19'),
-(3, 3, '2025-04-05', '2025-04-12'),
-(4, 3, '2025-04-18', '2025-04-25'),
-(1, 4, '2025-04-08', '2025-04-15'),
-(2, 5, '2025-04-10', '2025-04-17'),
-(3, 6, '2025-04-12', '2025-04-19'),
-(1, 7, '2025-04-22', '2025-04-29'),
-(5, 3, '2025-03-15', '2025-03-22'); -- A rental from previous month
+-- Get the generated IDs
+SELECT @AdminID1 = AID FROM ADMIN WHERE ADMIN_NAME = 'Mahmoud Admin';
+SELECT @AdminID2 = AID FROM ADMIN WHERE ADMIN_NAME = 'Sara Admin';
 
--- Insert into REVIEWS table
-INSERT INTO REVIEWS VALUES
-(1, 1, 'Great action game with stunning desert graphics!'),
-(2, 1, 'Challenging gameplay but very enjoyable'),
-(3, 1, 'Love the Egyptian setting and characters'),
-(1, 2, 'Amazing adventure in the pyramids'),
-(2, 2, 'The puzzles are quite challenging'),
-(3, 3, 'Realistic football simulation with Egyptian teams'),
-(4, 3, 'Fun to play but needs more teams');
+SELECT @VendorID1 = VID FROM VENDOR WHERE VENDOR_NAME = 'Cairo Games';
+SELECT @VendorID2 = VID FROM VENDOR WHERE VENDOR_NAME = 'Alexandria Entertainment';
+SELECT @VendorID3 = VID FROM VENDOR WHERE VENDOR_NAME = 'Delta Digital';
+SELECT @VendorID4 = VID FROM VENDOR WHERE VENDOR_NAME = 'Upper Games';
 
--- Insert into PAYMENT table
-INSERT INTO PAYMENT VALUES
-(1, 1, 1, '2025-04-01', '2025-04-01', 10.00),
-(2, 2, 1, '2025-04-05', '2025-04-05', 10.00),
-(3, 3, 1, '2025-04-10', '2025-04-10', 10.00),
-(4, 1, 2, '2025-04-02', '2025-04-02', 12.00),
-(5, 2, 2, '2025-04-12', '2025-04-12', 12.00),
-(6, 3, 3, '2025-04-05', '2025-04-05', 8.00),
-(7, 4, 3, '2025-04-18', '2025-04-18', 8.00),
-(8, 1, 4, '2025-04-08', '2025-04-08', 7.50),
-(9, 2, 5, '2025-04-10', '2025-04-10', 5.00),
-(10, 3, 6, '2025-04-12', '2025-04-12', 7.00),
-(11, 1, 7, '2025-04-22', '2025-04-22', 11.00),
-(12, 5, 3, '2025-03-15', '2025-03-15', 8.00);
+SELECT @CategoryID1 = CID FROM CATEGORY WHERE CATEGORY_NAME = 'Action';
+SELECT @CategoryID2 = CID FROM CATEGORY WHERE CATEGORY_NAME = 'Adventure';
+SELECT @CategoryID3 = CID FROM CATEGORY WHERE CATEGORY_NAME = 'Sports';
+SELECT @CategoryID4 = CID FROM CATEGORY WHERE CATEGORY_NAME = 'Strategy';
+SELECT @CategoryID5 = CID FROM CATEGORY WHERE CATEGORY_NAME = 'Puzzle';
+
+-- Insert games using the fetched IDs
+INSERT INTO GAME (AID, VID, CID, GAME_NAME, PRICE, RELEASE_DATE, DESCRIPTION) VALUES
+(@AdminID1, @VendorID1, @CategoryID1, 'Desert Warriors', 49.99, '2023-03-15', 'Action game set in Egyptian deserts'),
+(@AdminID1, @VendorID2, @CategoryID2, 'Pharaoh Tomb', 59.99, '2023-04-20', 'Adventure in ancient Egyptian pyramids'),
+(@AdminID2, @VendorID3, @CategoryID3, 'Cairo Football 2024', 39.99, '2023-09-10', 'Football simulation with Egyptian teams'),
+(@AdminID2, @VendorID4, @CategoryID4, 'Nile Empire', 29.99, '2023-07-05', 'Strategy game set along the Nile River'),
+(@AdminID1, @VendorID1, @CategoryID5, 'Hieroglyphic Puzzles', 19.99, '2023-05-12', 'Puzzle game based on hieroglyphics'),
+(@AdminID2, @VendorID2, @CategoryID1, 'Alexandria Rally', 34.99, '2023-08-18', 'Racing through streets of Alexandria'),
+(@AdminID1, @VendorID3, @CategoryID2, 'Legends of Sinai', 54.99, '2023-06-22', 'RPG set in the Sinai Peninsula'),
+(@AdminID2, @VendorID4, @CategoryID3, 'Hotel Tycoon Egypt', 24.99, '2023-10-30', 'Simulation game managing Egyptian resorts');
+
+-- For RENTALS, REVIEWS, and PAYMENT tables, we need to reference the USER and GAME IDs
+-- Let's create variables to store these IDs
+
+DECLARE @UserID1 INT, @UserID2 INT, @UserID3 INT, @UserID4 INT, @UserID5 INT;
+DECLARE @GameID1 INT, @GameID2 INT, @GameID3 INT, @GameID4 INT, @GameID5 INT, @GameID6 INT, @GameID7 INT, @GameID8 INT;
+
+-- Get USER IDs
+SELECT @UserID1 = UID FROM [USER] WHERE USER_NAME = 'Ahmed Mohamed';
+SELECT @UserID2 = UID FROM [USER] WHERE USER_NAME = 'Fatima Ali';
+SELECT @UserID3 = UID FROM [USER] WHERE USER_NAME = 'Omar Hassan';
+SELECT @UserID4 = UID FROM [USER] WHERE USER_NAME = 'Layla Ibrahim';
+SELECT @UserID5 = UID FROM [USER] WHERE USER_NAME = 'Karim Mahmoud';
+
+-- Get GAME IDs
+SELECT @GameID1 = GID FROM GAME WHERE GAME_NAME = 'Desert Warriors';
+SELECT @GameID2 = GID FROM GAME WHERE GAME_NAME = 'Pharaoh Tomb';
+SELECT @GameID3 = GID FROM GAME WHERE GAME_NAME = 'Cairo Football 2024';
+SELECT @GameID4 = GID FROM GAME WHERE GAME_NAME = 'Nile Empire';
+SELECT @GameID5 = GID FROM GAME WHERE GAME_NAME = 'Hieroglyphic Puzzles';
+SELECT @GameID6 = GID FROM GAME WHERE GAME_NAME = 'Alexandria Rally';
+SELECT @GameID7 = GID FROM GAME WHERE GAME_NAME = 'Legends of Sinai';
+SELECT @GameID8 = GID FROM GAME WHERE GAME_NAME = 'Hotel Tycoon Egypt';
+
+-- Insert into RENTALS table using the fetched IDs
+INSERT INTO RENTALS (UID, GID, RENT_DATE, RETURN_DATE) VALUES
+(@UserID1, @GameID1, '2025-04-01', '2025-04-07'),
+(@UserID2, @GameID1, '2025-04-05', '2025-04-12'),
+(@UserID3, @GameID1, '2025-04-10', '2025-04-17'),
+(@UserID1, @GameID2, '2025-04-02', '2025-04-09'),
+(@UserID2, @GameID2, '2025-04-12', '2025-04-19'),
+(@UserID3, @GameID3, '2025-04-05', '2025-04-12'),
+(@UserID4, @GameID3, '2025-04-18', '2025-04-25'),
+(@UserID1, @GameID4, '2025-04-08', '2025-04-15'),
+(@UserID2, @GameID5, '2025-04-10', '2025-04-17'),
+(@UserID3, @GameID6, '2025-04-12', '2025-04-19'),
+(@UserID1, @GameID7, '2025-04-22', '2025-04-29'),
+(@UserID5, @GameID3, '2025-03-15', '2025-03-22'); -- A rental from previous month
+
+-- Insert into REVIEWS table using the fetched IDs
+INSERT INTO REVIEWS (UID, GID, REVIEW_CONTENT) VALUES
+(@UserID1, @GameID1, 'Great action game with stunning desert graphics!'),
+(@UserID2, @GameID1, 'Challenging gameplay but very enjoyable'),
+(@UserID3, @GameID1, 'Love the Egyptian setting and characters'),
+(@UserID1, @GameID2, 'Amazing adventure in the pyramids'),
+(@UserID2, @GameID2, 'The puzzles are quite challenging'),
+(@UserID3, @GameID3, 'Realistic football simulation with Egyptian teams'),
+(@UserID4, @GameID3, 'Fun to play but needs more teams');
+
+-- Insert into PAYMENT table using the fetched IDs
+INSERT INTO PAYMENT (UID, GID, RENT_DATE, PAYMENT_DATE, AMOUNT) VALUES
+(@UserID1, @GameID1, '2025-04-01', '2025-04-01', 10.00),
+(@UserID2, @GameID1, '2025-04-05', '2025-04-05', 10.00),
+(@UserID3, @GameID1, '2025-04-10', '2025-04-10', 10.00),
+(@UserID1, @GameID2, '2025-04-02', '2025-04-02', 12.00),
+(@UserID2, @GameID2, '2025-04-12', '2025-04-12', 12.00),
+(@UserID3, @GameID3, '2025-04-05', '2025-04-05', 8.00),
+(@UserID4, @GameID3, '2025-04-18', '2025-04-18', 8.00),
+(@UserID1, @GameID4, '2025-04-08', '2025-04-08', 7.50),
+(@UserID2, @GameID5, '2025-04-10', '2025-04-10', 5.00),
+(@UserID3, @GameID6, '2025-04-12', '2025-04-12', 7.00),
+(@UserID1, @GameID7, '2025-04-22', '2025-04-22', 11.00),
+(@UserID5, @GameID3, '2025-03-15', '2025-03-15', 8.00);
