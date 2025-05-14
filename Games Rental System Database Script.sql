@@ -197,6 +197,7 @@ create table ADMIN (
    ADMIN_NAME           varchar(50)          not null,
    USER_PHONE           varchar(11)          not null,
    USER_EMAIL           varchar(50)          not null,
+   PASSWORD             varchar(50)          not null,
    constraint PK_ADMIN primary key nonclustered (AID)
 )
 go
@@ -339,6 +340,7 @@ create table "USER" (
    USER_EMAIL           varchar(50)          not null,
    USER_PHONE           varchar(11)          not null,
    JOIN_DATE            datetime             not null,
+   PASSWORD             varchar(50)          not null,
    constraint PK_USER primary key nonclustered (UID)
 )
 go
@@ -409,12 +411,12 @@ DELETE FROM CATEGORY;
 DELETE FROM [USER];
 
 -- Insert into USER table without specifying IDs
-INSERT INTO [USER] (USER_NAME, USER_EMAIL, USER_PHONE, JOIN_DATE) VALUES 
-('Ahmed Mohamed', 'ahmed@example.com', '01012345678', '2023-01-15'),
-('Fatima Ali', 'fatima@example.com', '01023456789', '2023-02-20'),
-('Omar Hassan', 'omar@example.com', '01034567890', '2023-03-10'),
-('Layla Ibrahim', 'layla@example.com', '01045678901', '2023-04-05'),
-('Karim Mahmoud', 'karim@example.com', '01056789012', '2023-05-12');
+INSERT INTO [USER] (USER_NAME, USER_EMAIL, USER_PHONE, JOIN_DATE, PASSWORD) VALUES 
+('Ahmed Mohamed', 'ahmed@example.com', '01012345678', '2023-01-15', 'Ahmed@123'),
+('Fatima Ali', 'fatima@example.com', '01023456789', '2023-02-20', 'Fatima@456'),
+('Omar Hassan', 'omar@example.com', '01034567890', '2023-03-10', 'Omar@789'),
+('Layla Ibrahim', 'layla@example.com', '01045678901', '2023-04-05', 'Layla@321'),
+('Karim Mahmoud', 'karim@example.com', '01056789012', '2023-05-12', 'Karim@654');
 
 -- Insert into CATEGORY table without specifying IDs
 INSERT INTO CATEGORY (CATEGORY_NAME) VALUES
@@ -432,9 +434,9 @@ INSERT INTO VENDOR (VENDOR_NAME, VENDOR_EMAIL, ADDRESS, VENDOR_PHONE) VALUES
 ('Upper Games', 'upper@games.com', 'Luxor', '09523698741');
 
 -- Insert into ADMIN table without specifying IDs
-INSERT INTO ADMIN (ADMIN_NAME, USER_PHONE, USER_EMAIL) VALUES
-('Mahmoud Admin', '01112345678', 'mahmoud@admin.com'),
-('Sara Admin', '01223456789', 'sara@admin.com');
+INSERT INTO ADMIN (ADMIN_NAME, USER_PHONE, USER_EMAIL, PASSWORD) VALUES
+('Mahmoud Admin', '01112345678', 'mahmoud@admin.com', 'Admin@123'),
+('Sara Admin', '01223456789', 'sara@admin.com', 'Admin@456');
 
 -- Insert into GAME table without specifying IDs
 -- Note: We need to reference the correct AID, VID, CID which are auto-generated
