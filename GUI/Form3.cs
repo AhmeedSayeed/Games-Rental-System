@@ -46,7 +46,6 @@ namespace GameRentalSystem
             usernameTextBox = CreateInputField("Username", startY, false);
             passwordTextBox = CreateInputField("Password", startY + spacing, true);
 
-            // Role Label
             Label roleLabel = new Label()
             {
                 Text = "Role:",
@@ -57,7 +56,6 @@ namespace GameRentalSystem
             };
             this.Controls.Add(roleLabel);
 
-            // Role ComboBox
             roleComboBox = new ComboBox()
             {
                 Location = new Point(50, startY + spacing * 2 + 25),
@@ -151,14 +149,11 @@ namespace GameRentalSystem
             string password = passwordTextBox.Text == (string)passwordTextBox.Tag ? "" : passwordTextBox.Text;
             string role = roleComboBox.SelectedItem.ToString();
 
-            if (string.IsNullOrWhiteSpace(username))
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Please enter your username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter both username and password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            string tableName = role == "Admin" ? "[ADMIN]" : "[USER]";
-            string columnUsername = role == "Admin" ? "user_email" : "USER_NAME"; // Changed ADMIN_NAME to user_email
 
             try
             {
@@ -167,32 +162,42 @@ namespace GameRentalSystem
                 {
                     conn.Open();
 
-                    string query = $"SELECT COUNT(*) FROM {tableName} WHERE {columnUsername} = @username";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    if (role == "Admin")
                     {
-                        cmd.Parameters.AddWithValue("@username", username);
-
-                        int count = (int)cmd.ExecuteScalar();
-
-                        if (count > 0)
+                        string adminQuery = "SELECT COUNT(*) FROM [ADMIN] WHERE ADMIN_NAME = @username AND PASSWORD = @password";
+                        using (SqlCommand cmd = new SqlCommand(adminQuery, conn))
                         {
-                            if (role == "Admin")
+                            cmd.Parameters.AddWithValue("@username", username);
+                            cmd.Parameters.AddWithValue("@password", password);
+
+                            int adminCount = (int)cmd.ExecuteScalar();
+                            if (adminCount > 0)
                             {
-                                Form4 admindashboard = new Form4();
-                                admindashboard.Show();
+                                Form4 adminDashboard = new Form4();
+                                adminDashboard.Show();
+                                this.Hide();
+                                return;
                             }
-                            else
-                            {
-                                Form5 admindashboard = new Form5(username);
-                                admindashboard.Show();
-                            } 
-                                this.Hide(); // Immediately close Form1
-                        }
-                        else
-                        {
-                            MessageBox.Show("Username does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
+                    // Then try to authenticate as User (or if Admin login failed)
+                    string userQuery = "SELECT COUNT(*) FROM [USER] WHERE USER_NAME = @username AND PASSWORD = @password";
+                    using (SqlCommand cmd = new SqlCommand(userQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@password", password);
+
+                        int userCount = (int)cmd.ExecuteScalar();
+                        if (userCount > 0)
+                        {
+                            Form5 userDashboard = new Form5(username);
+                            userDashboard.Show();
+                            this.Hide();
+                            return;
+                        }
+                    }
+
+                    MessageBox.Show("Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -202,8 +207,6 @@ namespace GameRentalSystem
         }
 
         private void Form3_Load(object sender, EventArgs e)
-        {
-            // Optional: extra logic
-        }
+        { }
     }
 }

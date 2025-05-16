@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GamesHub
@@ -141,7 +142,7 @@ namespace GamesHub
                 BackColor = Color.White
             };
 
-            comboBox.Items.Add("Client");
+            comboBox.Items.Add("User");
             comboBox.Items.Add("Admin");
             comboBox.SelectedIndex = 0;
 
@@ -160,9 +161,10 @@ namespace GamesHub
             string confirmPassword = confirmPasswordTextBox.Text == (string)confirmPasswordTextBox.Tag ? "" : confirmPasswordTextBox.Text;
             string role = roleComboBox.SelectedItem.ToString();
 
+            // Validation checks
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(username) ||
-                string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || 
-                    string.IsNullOrWhiteSpace(phone))
+                string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(phone))
             {
                 MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -174,35 +176,34 @@ namespace GamesHub
                 return;
             }
 
-            for (int i = 0; i < phoneTextBox.Text.Length; ++i)
+            if (!phone.All(char.IsDigit))
             {
-                if (phoneTextBox.Text[i] < '0' || phoneTextBox.Text[i] > '9')
-                {
-                    MessageBox.Show("Phone number consists of digits only.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                MessageBox.Show("Phone number must contain digits only.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["GamesHubDB"].ConnectionString;
-                string tableName = role == "Admin" ? "[ADMIN]" : "[USER]";
-
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    string checkQuery = $"SELECT COUNT(*) FROM {tableName} WHERE " +
-                                      (role == "Admin" ? "ADMIN_NAME" : "USER_NAME") + " = @Username";
+                    string checkUserQuery = "SELECT COUNT(*) FROM [USER] WHERE USER_NAME = @Username";
+                    string checkAdminQuery = "SELECT COUNT(*) FROM [ADMIN] WHERE ADMIN_NAME = @Username";
 
-                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
+                    using (SqlCommand checkUserCmd = new SqlCommand(checkUserQuery, conn))
+                    using (SqlCommand checkAdminCmd = new SqlCommand(checkAdminQuery, conn))
                     {
-                        checkCmd.Parameters.AddWithValue("@Username", role == "Admin" ? name : username);
-                        int userExists = (int)checkCmd.ExecuteScalar();
+                        checkUserCmd.Parameters.AddWithValue("@Username", username);
+                        checkAdminCmd.Parameters.AddWithValue("@Username", username);
 
-                        if (userExists > 0)
+                        int userExists = (int)checkUserCmd.ExecuteScalar();
+                        int adminExists = (int)checkAdminCmd.ExecuteScalar();
+
+                        if (userExists > 0 || adminExists > 0)
                         {
-                            MessageBox.Show(role == "Admin" ? "Admin name already exists." : "Username already exists.",
+                            MessageBox.Show("Username already exists. Please choose a different one.",
                                           "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
@@ -211,28 +212,24 @@ namespace GamesHub
                     string insertQuery;
                     if (role == "Admin")
                     {
-                        insertQuery = $"INSERT INTO {tableName} (ADMIN_NAME, USER_EMAIL, USER_PHONE, PASSWORD) " +
-                                     $"VALUES (@Name, @Email, @UserPhone, @Password)";
+                        insertQuery = "INSERT INTO [ADMIN] (ADMIN_NAME, USER_EMAIL, USER_PHONE, PASSWORD) " +
+                                     "VALUES (@Username, @Email, @Phone, @Password)";
                     }
                     else
                     {
-                        insertQuery = $"INSERT INTO {tableName} (USER_NAME, USER_EMAIL, USER_PHONE, JOIN_DATE, PASSWORD) " +
-                                     $"VALUES (@Username, @Email, @UserPhone, @JoinDate, @Password)";
+                        insertQuery = "INSERT INTO [USER] (USER_NAME, USER_EMAIL, USER_PHONE, JOIN_DATE, PASSWORD) " +
+                                     "VALUES (@Username, @Email, @Phone, @JoinDate, @Password)";
                     }
 
                     using (SqlCommand cmd = new SqlCommand(insertQuery, conn))
                     {
+                        cmd.Parameters.AddWithValue("@Username", username);
                         cmd.Parameters.AddWithValue("@Email", email);
-                        cmd.Parameters.AddWithValue("@UserPhone", phone); 
-                        cmd.Parameters.AddWithValue("@Password", password); 
+                        cmd.Parameters.AddWithValue("@Phone", phone);
+                        cmd.Parameters.AddWithValue("@Password", password);
 
-                        if (role == "Admin")
+                        if (role != "Admin")
                         {
-                            cmd.Parameters.AddWithValue("@Name", name);
-                        }
-                        else
-                        {
-                            cmd.Parameters.AddWithValue("@Username", username);
                             cmd.Parameters.AddWithValue("@JoinDate", DateTime.Now);
                         }
 

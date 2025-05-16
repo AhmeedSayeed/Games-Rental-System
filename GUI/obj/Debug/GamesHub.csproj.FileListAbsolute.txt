@@ -45,3 +45,19 @@ E:\FCAI\Second Year\Second Semester\Data Base\final\GamesHub\obj\Debug\GamesHub.
 E:\FCAI\Second Year\Second Semester\Data Base\final\GamesHub\obj\Debug\GamesHub.csproj.CoreCompileInputs.cache
 E:\FCAI\Second Year\Second Semester\Data Base\final\GamesHub\obj\Debug\GamesHub.exe
 E:\FCAI\Second Year\Second Semester\Data Base\final\GamesHub\obj\Debug\GamesHub.pdb
+D:\Books\final (1)\final\GUI\bin\Debug\GamesHub.exe.config
+D:\Books\final (1)\final\GUI\bin\Debug\GamesHub.exe
+D:\Books\final (1)\final\GUI\bin\Debug\GamesHub.pdb
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.csproj.AssemblyReference.cache
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.exe.config
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.Form1.resources
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.Form2.resources
+D:\Books\final (1)\final\GUI\obj\Debug\GameRentalSystem.LoginForm.resources
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.Form4.resources
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.Form5.resources
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.Form6.resources
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.Properties.Resources.resources
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.csproj.GenerateResource.cache
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.csproj.CoreCompileInputs.cache
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.exe
+D:\Books\final (1)\final\GUI\obj\Debug\GamesHub.pdb

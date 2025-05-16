@@ -10,14 +10,74 @@ namespace GamesHub
     {
         private readonly string connectionString = "Server=localhost;Database=GamesRentalDB;Integrated Security=True;";
         private readonly (string Title, string Query)[] reports = new[]
-        {
-            ("a. Most Interesting Game", @"SELECT TOP 1 g.GAME_NAME AS [Game], COUNT(DISTINCT r.UID) AS [Renters] FROM GAME g JOIN RENTALS r ON g.GID=r.GID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()) GROUP BY g.GAME_NAME ORDER BY Renters DESC"),
-            ("b. No Renters Last Month", @"SELECT g.GAME_NAME AS [Game] FROM GAME g WHERE g.GID NOT IN (SELECT GID FROM RENTALS WHERE RENT_DATE>=DATEADD(MONTH,-1,GETDATE()))"),
-            ("c. Top Client Last Month", @"SELECT TOP 1 u.USER_NAME AS [Client], COUNT(r.GID) AS [Rentals] FROM [USER] u JOIN RENTALS r ON u.UID=r.UID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()) GROUP BY u.USER_NAME ORDER BY Rentals DESC"),
-            ("d. Top Vendor Last Month", @"SELECT TOP 1 v.VENDOR_NAME AS [Vendor], COUNT(r.GID) AS [Rentals] FROM VENDOR v JOIN GAME g ON v.VID=g.VID JOIN RENTALS r ON g.GID=r.GID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()) GROUP BY v.VENDOR_NAME ORDER BY Rentals DESC"),
-            ("e. Vendors No Rentals Last Month", @"SELECT VENDOR_NAME AS [Vendor] FROM VENDOR WHERE VID NOT IN (SELECT DISTINCT g.VID FROM GAME g JOIN RENTALS r ON g.GID=r.GID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()))"),
-            ("f. Vendors No New Games Last Year", @"SELECT VENDOR_NAME AS [Vendor] FROM VENDOR WHERE VID NOT IN (SELECT DISTINCT VID FROM GAME WHERE RELEASE_DATE>=DATEADD(YEAR,-1,GETDATE()))")
-        };
+  {
+    ("a. Most Popular Game", @"
+        SELECT TOP 1 WITH TIES
+            g.GAME_NAME AS [Game], 
+            COUNT(DISTINCT r.UID) AS [Renters]
+        FROM GAME g
+        JOIN RENTALS r ON g.GID = r.GID
+        GROUP BY g.GAME_NAME
+        ORDER BY Renters DESC
+    "),
+
+    ("b. Games Not Rented Last Month", @"
+        SELECT g.GAME_NAME AS [Game]
+        FROM GAME g
+        WHERE g.GID NOT IN (
+            SELECT DISTINCT GID
+            FROM RENTALS
+            WHERE RENT_DATE >= DATEADD(MONTH, -1, GETDATE())
+        )
+    "),
+
+    ("c. Top Client Last Month", @"
+        SELECT TOP 1 WITH TIES 
+            u.USER_NAME AS [Client], 
+            COUNT(r.GID) AS [Rentals]
+        FROM [USER] u
+        JOIN RENTALS r ON u.UID = r.UID
+        WHERE r.RENT_DATE >= DATEADD(MONTH, -1, GETDATE())
+        GROUP BY u.USER_NAME
+        ORDER BY Rentals DESC
+    "),
+
+    ("d. Top Vendor Last Month", @"
+        SELECT TOP 1 WITH TIES
+            v.VENDOR_NAME AS [Vendor], 
+            COUNT(r.GID) AS [Rentals]
+        FROM VENDOR v
+        JOIN GAME g ON v.VID = g.VID
+        JOIN RENTALS r ON g.GID = r.GID
+        WHERE r.RENT_DATE >= DATEADD(MONTH, -1, GETDATE())
+        GROUP BY v.VENDOR_NAME
+        ORDER BY Rentals DESC
+    "),
+
+    ("e. Vendors With No Rentals Last Month", @"
+        SELECT 
+            v.VENDOR_NAME AS [Vendor]
+        FROM VENDOR v
+        WHERE v.VID NOT IN (
+            SELECT DISTINCT g.VID
+            FROM GAME g
+            JOIN RENTALS r ON g.GID = r.GID
+            WHERE r.RENT_DATE >= DATEADD(MONTH, -1, GETDATE())
+        )
+    "),
+
+    ("f. Vendors With No New Games Last Year", @"
+        SELECT 
+            v.VENDOR_NAME AS [Vendor]
+        FROM VENDOR v
+        WHERE v.VID NOT IN (
+            SELECT DISTINCT VID
+            FROM GAME
+            WHERE RELEASE_DATE >= DATEADD(YEAR, -1, GETDATE())
+        )
+    ")
+};
+
 
         private ComboBox combo;
         private Button showButton;
