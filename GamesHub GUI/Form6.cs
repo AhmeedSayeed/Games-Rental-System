@@ -12,10 +12,10 @@ namespace GamesHub
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["GamesHubDB"].ConnectionString;
         private readonly (string Title, string Query)[] reports = new[]
         {
-            ("a. Most Interesting Game", @"SELECT TOP 1 g.GAME_NAME AS [Game], COUNT(DISTINCT r.UID) AS [Renters] FROM GAME g JOIN RENTALS r ON g.GID=r.GID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()) GROUP BY g.GAME_NAME ORDER BY Renters DESC"),
+            ("a. Most Interesting Game", @"SELECT TOP 1 with ties g.GAME_NAME AS [Game], COUNT(r.UID) AS [Renters] FROM GAME g JOIN RENTALS r ON g.GID=r.GID GROUP BY g.GAME_NAME ORDER BY Renters DESC"),
             ("b. No Renters Last Month", @"SELECT g.GAME_NAME AS [Game] FROM GAME g WHERE g.GID NOT IN (SELECT GID FROM RENTALS WHERE RENT_DATE>=DATEADD(MONTH,-1,GETDATE()))"),
-            ("c. Top Client Last Month", @"SELECT TOP 1 u.USER_NAME AS [Client], COUNT(r.GID) AS [Rentals] FROM [USER] u JOIN RENTALS r ON u.UID=r.UID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()) GROUP BY u.USER_NAME ORDER BY Rentals DESC"),
-            ("d. Top Vendor Last Month", @"SELECT TOP 1 v.VENDOR_NAME AS [Vendor], COUNT(r.GID) AS [Rentals] FROM VENDOR v JOIN GAME g ON v.VID=g.VID JOIN RENTALS r ON g.GID=r.GID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()) GROUP BY v.VENDOR_NAME ORDER BY Rentals DESC"),
+            ("c. Top Client Last Month", @"SELECT TOP 1 with ties u.USER_NAME AS [Client], COUNT(r.GID) AS [Rentals] FROM [USER] u JOIN RENTALS r ON u.UID=r.UID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()) GROUP BY u.USER_NAME ORDER BY Rentals DESC"),
+            ("d. Top Vendor Last Month", @"SELECT TOP 1 with ties v.VENDOR_NAME AS [Vendor], COUNT(r.GID) AS [Rentals] FROM VENDOR v JOIN GAME g ON v.VID=g.VID JOIN RENTALS r ON g.GID=r.GID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()) GROUP BY v.VENDOR_NAME ORDER BY Rentals DESC"),
             ("e. Vendors No Rentals Last Month", @"SELECT VENDOR_NAME AS [Vendor] FROM VENDOR WHERE VID NOT IN (SELECT DISTINCT g.VID FROM GAME g JOIN RENTALS r ON g.GID=r.GID WHERE r.RENT_DATE>=DATEADD(MONTH,-1,GETDATE()))"),
             ("f. Vendors No New Games Last Year", @"SELECT VENDOR_NAME AS [Vendor] FROM VENDOR WHERE VID NOT IN (SELECT DISTINCT VID FROM GAME WHERE RELEASE_DATE>=DATEADD(YEAR,-1,GETDATE()))")
         };

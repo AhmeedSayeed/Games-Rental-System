@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|w:\\material\\2.2\\database\\new\\assignment\\14-alia magdy-games rental system-phase 2\\gameshub gui\\form5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|solutionrelative:form5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|w:\\material\\2.2\\database\\new\\assignment\\14-alia magdy-games rental system-phase 2\\gameshub gui\\form6.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|solutionrelative:form6.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|w:\\material\\2.2\\database\\new\\assignment\\14-alia magdy-games rental system-phase 2\\gameshub gui\\form5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B579635E-7776-4E55-BB3F-82993E63F473}|GamesHub.csproj|solutionrelative:form5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\bin\\Debug\\GamesHub.exe.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
@@ -31,19 +35,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Form6.cs",
+              "DocumentMoniker": "W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\Form6.cs",
+              "RelativeDocumentMoniker": "Form6.cs",
+              "ToolTip": "W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\Form6.cs",
+              "RelativeToolTip": "Form6.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAB1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T11:23:45.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Form5.cs",
               "DocumentMoniker": "W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\Form5.cs",
               "RelativeDocumentMoniker": "Form5.cs",
               "ToolTip": "W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\Form5.cs",
               "RelativeToolTip": "Form5.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAIwFAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAIwEoAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-18T05:56:26.581Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "GamesHub.exe.config",
               "DocumentMoniker": "W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\bin\\Debug\\GamesHub.exe.config",
               "RelativeDocumentMoniker": "bin\\Debug\\GamesHub.exe.config",
@@ -55,7 +72,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -63,11 +80,12 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T05:28:06.584Z"
+              "WhenOpened": "2025-05-18T05:28:06.584Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "App.config",
               "DocumentMoniker": "W:\\Material\\2.2\\Database\\new\\Assignment\\14-Alia Magdy-Games Rental System-Phase 2\\GamesHub GUI\\App.config",
               "RelativeDocumentMoniker": "App.config",
@@ -75,7 +93,8 @@
               "RelativeToolTip": "App.config",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAACkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-05-18T05:26:03.538Z"
+              "WhenOpened": "2025-05-18T05:26:03.538Z",
+              "EditorCaption": ""
             }
           ]
         }
